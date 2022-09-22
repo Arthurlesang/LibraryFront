@@ -1,7 +1,10 @@
-import Head from 'next/head'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+
 
 export default function Home() {
     return (
-        <h1>Library Front</h1>
-    )
+
+        <Button variant="contained">Go to library</Button>
+)
 }
