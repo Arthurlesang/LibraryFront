@@ -1,6 +1,6 @@
 .container {
-    max-width: 36rem;
+    max-width: 50rem;
     padding: 0 1rem;
     margin: 3rem auto 6rem;
-    background-color: aqua;
+    background-color: #D9D9D9;
 }
