@@ -12,6 +12,5 @@ export default function Home() {
             <Button variant="contained"><Link href="/posts/contributor">CONTRIBUTOR_ROLE</Link></Button>
             <Button variant="contained"><Link href="/posts/administrator">ADMINISTRATOR_ROLE</Link></Button>
         </Layout>
-
 )
 }
