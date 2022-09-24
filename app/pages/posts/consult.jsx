@@ -1,6 +1,4 @@
 import Layout from '../../components/layout';
-import axios from "axios";
-import react from "react";
 import {useState} from "react";
 
 function Consult() {
