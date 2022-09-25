@@ -1,5 +1,17 @@
 import Layout from '../../components/layout';
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
+import { styled } from '@mui/material/styles';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 22,
+    },
+}));
 
 export const getStaticProps = async() => {
     const res = await fetch('http://15.237.139.132:3000/book');
@@ -23,14 +35,14 @@ const Consult = ({books}) => {
 
 
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell align="right">Author's name</TableCell>
-                            <TableCell align="right">Author's surname</TableCell>
-                            <TableCell align="right">Publisher</TableCell>
-                            <TableCell align="right">Status</TableCell>
+                            <StyledTableCell align="left">Title</StyledTableCell>
+                            <StyledTableCell align="left">Author's name</StyledTableCell>
+                            <StyledTableCell align="left">Author's surname</StyledTableCell>
+                            <StyledTableCell align="left">Publisher</StyledTableCell>
+                            <StyledTableCell align="left">Status</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -42,10 +54,10 @@ const Consult = ({books}) => {
                                 <TableCell component="th" scope="row">
                                     {book.name}
                                 </TableCell>
-                                <TableCell align="right">{book.name}</TableCell>
-                                <TableCell align="right">{book.author.name}</TableCell>
-                                <TableCell align="right">{book.author.surname}</TableCell>
-                                <TableCell align="right">{book.state}</TableCell>
+                                <TableCell align="left" >{book.name}</TableCell>
+                                <TableCell align="left">{book.author.name}</TableCell>
+                                <TableCell align="left">{book.author.surname}</TableCell>
+                                <TableCell align="left">{book.state}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
