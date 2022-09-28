@@ -3,7 +3,7 @@ import Layout from '../../components/layout';
 const Administrator = () => {
     return (
         <Layout>
-            <h1>Borrow</h1>
+            <h1>Administrator</h1>
         </Layout>
     )
 }
