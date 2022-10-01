@@ -14,7 +14,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const getStaticProps = async() => {
-    const res = await fetch('http://15.237.139.132:3000/book');
+    const res = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/books.json');
     const data = await res.json();
 
     return {
@@ -39,8 +39,8 @@ const Consult = ({books}) => {
                     <TableHead>
                         <TableRow>
                             <StyledTableCell align="left">Title</StyledTableCell>
-                            <StyledTableCell align="left">Author's name</StyledTableCell>
-                            <StyledTableCell align="left">Author's surname</StyledTableCell>
+                            <StyledTableCell align="left">Author's first name</StyledTableCell>
+                            <StyledTableCell align="left">Author's last name</StyledTableCell>
                             <StyledTableCell align="left">Publisher</StyledTableCell>
                             <StyledTableCell align="left">Status</StyledTableCell>
                         </TableRow>
@@ -48,15 +48,14 @@ const Consult = ({books}) => {
                     <TableBody>
                         {books.map((book) => (
                             <TableRow
-                                key={book.name}
+                                key={book.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
-                                    {book.name}
-                                </TableCell>
-                                <TableCell align="left" >{book.name}</TableCell>
-                                <TableCell align="left">{book.author.name}</TableCell>
-                                <TableCell align="left">{book.author.surname}</TableCell>
+
+                                <TableCell align="left" >{book.title}</TableCell>
+                                <TableCell align="left">{book.authors.firstName}</TableCell>
+                                <TableCell align="left">{book.authors.lastName}</TableCell>
+                                <TableCell align="left">{book.publisher}</TableCell>
                                 <TableCell align="left">{book.state}</TableCell>
                             </TableRow>
                         ))}
@@ -66,4 +65,6 @@ const Consult = ({books}) => {
         </Layout>
     );
 }
+
+//TODO resolve publishers and authorts consult page
 export default Consult;

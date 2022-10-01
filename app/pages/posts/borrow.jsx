@@ -2,18 +2,16 @@ import Layout from '../../components/layout';
 import Button from "@mui/material/Button";
 import {TextField} from "@mui/material";
 import * as React from "react";
-import {useState} from "react";
 
 const Borrow = () => {
-    const [user, setUser] = useState('');
+
+    let userText = '{"username": "user3","roles":["ROLE_USER"]}';
+    const user = JSON.parse(userText);
 
     const submitUser = async () => {
-        const response = await fetch('http://15.237.139.132:3000/book/add', {
+        const response = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/users', {
             method:'POST',
-            body: JSON.stringify({"title":"test",
-                "publishers":"/api/publisher/1",
-                "authors":[
-                    "/api/authors/1"]}),
+            body: JSON.stringify(user),
             headers:{'Content-Type' : 'application/json',
             },
         })
@@ -21,39 +19,32 @@ const Borrow = () => {
         console.log(data);
     }
 
+    const setUserName = (userName) => {
+        user.username = userName;
+    }
+
     return (
         <Layout>
             <h1>Borrow</h1>
             <div>
-                <Button href="/" color="primary" variant="contained">Consult books</Button>
+                <Button href="/posts/consult" color="primary" variant="contained">Consult books</Button>
             </div>
             <div>
-                <h2>Create new user : </h2>
-                <input type='text'
-                       value={user}
-                       onChange={e => setUser(e.target.value)}
-                />
-
-                <button onClick={submitUser}>Submit user</button>
+                <h1>Create new user : </h1>
 
                 <TextField
                     required
-                    id="filled-required"
-                    label="Required"
-                    defaultValue="Prenom"
+                    defaultValue="UserName"
                     variant="filled"
+                    onChange={e => setUserName(e.target.value)}
                 />
-                <TextField
-                    required
-                    id="filled-required"
-                    label="Required"
-                    defaultValue="Nom"
-                    variant="filled"
-                />
+                <Button variant="contained" onClick={submitUser}>Create user</Button>
             </div>
-            <Button variant="contained">Create user</Button>
         </Layout>
     )
 }
+
+
+//TODO create borrow asociating a book to a user
 
 export default Borrow;
