@@ -14,7 +14,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const getStaticProps = async() => {
-    const res = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/books.json');
+    const res = await fetch('http://15.237.139.132:3000/book/');
     const data = await res.json();
 
     return {

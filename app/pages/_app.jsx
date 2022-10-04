@@ -6,10 +6,10 @@ const customTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#9abae6',
+            main: '#FFD200',
         },
         secondary: {
-            main: '#FFFFFF',
+            main: '#000000',
         },
     },
 });

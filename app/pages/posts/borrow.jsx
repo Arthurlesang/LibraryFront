@@ -2,6 +2,7 @@ import Layout from '../../components/layout';
 import Button from "@mui/material/Button";
 import {TextField} from "@mui/material";
 import * as React from "react";
+import Box from "@mui/material/Box";
 
 const Borrow = () => {
 
@@ -31,14 +32,16 @@ const Borrow = () => {
             </div>
             <div>
                 <h1>Create new user : </h1>
-
-                <TextField
-                    required
-                    defaultValue="UserName"
-                    variant="filled"
+                <TextField id="outlined-basic" label="User name" variant="outlined"
                     onChange={e => setUserName(e.target.value)}
                 />
+            </div>
+            <div>
                 <Button variant="contained" onClick={submitUser}>Create user</Button>
+            </div>
+
+            <div>
+                <h1>Select book and user to create borrow :</h1>
             </div>
         </Layout>
     )
