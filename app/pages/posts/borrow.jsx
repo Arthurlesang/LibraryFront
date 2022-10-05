@@ -1,16 +1,40 @@
 import Layout from '../../components/layout';
 import Button from "@mui/material/Button";
-import {TextField} from "@mui/material";
+import {Paper, Table, TableBody, TableContainer, TableHead, TableRow, TextField} from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
+import TableCell, {tableCellClasses} from "@mui/material/TableCell";
+import {styled} from "@mui/material/styles";
+import MaterialTable from 'material-table';
 
-const Borrow = () => {
+const StyledTableCell = styled(TableCell)(({theme}) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 22,
+    },
+}));
+
+
+export const getStaticProps = async () => {
+    const res = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/books.json');
+    const data = await res.json();
+
+    return {
+        props: {books: data}
+    }
+}
+
+
+const Borrow = ({books}) => {
 
     let userText = '{"username": "user3","roles":["ROLE_USER"]}';
     const user = JSON.parse(userText);
 
     const submitUser = async () => {
-        const response = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/users', {
+        const response = await fetch('http://15.237.139.132:3000/user/add/', {
             method:'POST',
             body: JSON.stringify(user),
             headers:{'Content-Type' : 'application/json',
@@ -42,7 +66,60 @@ const Borrow = () => {
 
             <div>
                 <h1>Select book and user to create borrow :</h1>
+                {/* A JSX comment
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="left">Title</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {books.map((book) => (
+
+
+                                    <TableRow
+                                        key={book.id}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+
+                                        <TableCell align="left">{book.title}</TableCell>
+                                    </TableRow>
+
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+-->*/}
             </div>
+
+
+            <div>
+                <MaterialTable
+                    title="Simple Action Preview"
+                    columns={[
+                        { title: 'Name', field: 'name' },
+                        { title: 'Surname', field: 'surname' },
+                        { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
+                        {
+                            title: 'Birth Place',
+                            field: 'birthCity',
+                            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+                        },
+                    ]}
+                    data={[
+                        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+                        { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+                    ]}
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            onClick: (event, rowData) => alert("You saved " + rowData.name)
+                        }
+                    ]}
+                />
+            </div>
+
         </Layout>
     )
 }

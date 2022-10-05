@@ -26,7 +26,7 @@ const Contributor = () => {
         const response = await fetch('http://15.237.139.132:3000/author/add/', {
             method:'POST',
             body: JSON.stringify(author),
-            headers:{'Accept' : 'application/json', 'Content-Type':'application/json'
+            headers:{'Content-Type':'application/json'
             },
         })
         const data = await response.json();
@@ -39,11 +39,11 @@ const Contributor = () => {
         const ans = await fetch('http://15.237.139.132:3000/publisher/add', {
             method:'POST',
             body:JSON.stringify(publisher),
-            headers:{'Accept' : 'application/json'},
+            headers:{'Content-Type':'application/json'}
         })
         const data = await ans.json();
         console.log(data);
-        console.log(JSON.stringify(publisher));
+        console.log('ce que j envoie ' + JSON.stringify(publisher));
     }
 
     return (
