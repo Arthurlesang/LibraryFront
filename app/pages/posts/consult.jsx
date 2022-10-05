@@ -1,9 +1,9 @@
 import Layout from '../../components/layout';
 import {Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
-import { styled } from '@mui/material/styles';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import {styled} from '@mui/material/styles';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
         color: theme.palette.common.white,
@@ -13,12 +13,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-export const getStaticProps = async() => {
+export const getStaticProps = async () => {
     const res = await fetch('http://15.237.139.132:3000/book/');
     const data = await res.json();
 
     return {
-        props : {books : data}
+        props: {books: data}
     }
 }
 
@@ -35,7 +35,7 @@ const Consult = ({books}) => {
 
 
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} size="small" aria-label="sticky table">
+                <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell align="left">Title</StyledTableCell>
@@ -47,18 +47,25 @@ const Consult = ({books}) => {
                     </TableHead>
                     <TableBody>
                         {books.map((book) => (
-                            <TableRow
-                                key={book.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
+                            book.authors.map(author => (
 
-                                <TableCell align="left" >{book.title}</TableCell>
-                                <TableCell align="left">{book.authors.firstName}</TableCell>
-                                <TableCell align="left">{book.authors.lastName}</TableCell>
-                                <TableCell align="left">{book.publisher}</TableCell>
-                                <TableCell align="left">{book.state}</TableCell>
-                            </TableRow>
-                        ))}
+
+                                <TableRow
+                                    key={book.id}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+
+                                    <TableCell align="left">{book.title}</TableCell>
+                                    <TableCell align="left">{author.firstName}</TableCell>
+                                    <TableCell align="left">{author.lastName}</TableCell>
+                                    <TableCell align="left">{book.publisher}</TableCell>
+                                    <TableCell align="left">{book.state}</TableCell>
+                                </TableRow>
+
+
+                            ))
+
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -7,6 +7,13 @@ const Contributor = () => {
     let authorText = '{"firstName":"defaultFirstName","lastName":"defaultLastName","books":[]}';
     const author = JSON.parse(authorText);
 
+    let publisherText ='{"name":"defaultPublisherName"}';
+    const publisher = JSON.parse(publisherText);
+
+    const setPublisherName = (name) => {
+        publisher.name = name;
+    }
+
     const setAuthorLastName = (lastName) => {
         author.lastName = lastName;
     }
@@ -26,6 +33,17 @@ const Contributor = () => {
         console.log(data);
     }
 
+    const submitPublisher = async() => {
+        const response = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/publishers', {
+            method:'POST',
+            body:JSON.stringify(publisher),
+            headers:{'Content-Type' : 'application/json',
+            },
+        })
+        const data = await response.json();
+        console.log(data);
+    }
+
     return (
         <Layout>
             <h1>Contributor</h1>
@@ -36,13 +54,24 @@ const Contributor = () => {
                 />
                 <TextField id="outlined-basic" label="Last name" variant="outlined"
                            onChange={e => setAuthorLastName(e.target.value)} />
-
+            </div>
+            <div>
                 <Button variant="contained" onClick={submitAuthor}>Create author</Button>
+            </div>
+
+            <div>
+                <h2>Create new publisher</h2>
+                <TextField id="outlined-basic" label="Publisher name" variant="outlined"
+                           onChange={e => setPublisherName(e.target.value)}
+                />
+            </div>
+            <div>
+                <Button variant="contained" onClick={submitPublisher}>Create publisher</Button>
             </div>
         </Layout>
     )
 }
 
-//TODO print list of authors
+//TODO print list of authors and publishers to create new book
 
 export default Contributor;
