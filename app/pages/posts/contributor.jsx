@@ -4,10 +4,10 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
 const Contributor = () => {
-    let authorText = '{"firstName":"defaultFirstName","lastName":"defaultLastName","books":[]}';
+    let authorText = '{"firstName":"defaultFirstName","lastName":"defaultLastName"}';
     const author = JSON.parse(authorText);
 
-    let publisherText ='{"name":"defaultPublisherName"}';
+    let publisherText ='{"name":"publicEnFolie54"}';
     const publisher = JSON.parse(publisherText);
 
     const setPublisherName = (name) => {
@@ -23,25 +23,27 @@ const Contributor = () => {
     }
 
     const submitAuthor = async () => {
-        const response = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/authors', {
+        const response = await fetch('http://15.237.139.132:3000/author/add/', {
             method:'POST',
             body: JSON.stringify(author),
-            headers:{'Content-Type' : 'application/json',
+            headers:{'Accept' : 'application/json', 'Content-Type':'application/json'
             },
         })
         const data = await response.json();
         console.log(data);
     }
 
+
+    // Totouan's URL : https://api-ensicaen-webservices.herokuapp.com/api/publishers
     const submitPublisher = async() => {
-        const response = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/publishers', {
+        const ans = await fetch('http://15.237.139.132:3000/publisher/add', {
             method:'POST',
             body:JSON.stringify(publisher),
-            headers:{'Content-Type' : 'application/json',
-            },
+            headers:{'Accept' : 'application/json'},
         })
-        const data = await response.json();
+        const data = await ans.json();
         console.log(data);
+        console.log(JSON.stringify(publisher));
     }
 
     return (
