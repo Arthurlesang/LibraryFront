@@ -22,13 +22,25 @@ export const getStaticProps = async () => {
     const res = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/books.json');
     const data = await res.json();
 
+    const res2 = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/users.json');
+    const data2 = await res2.json();
+
     return {
-        props: {books: data}
+        props: {books: data, users : data2}
+    }
+}
+
+export const getUserProps = async () => {
+    const res = await fetch('https://api-ensicaen-webservices.herokuapp.com/api/users.json');
+    const data = await res.json();
+
+    return {
+        props: {users: data}
     }
 }
 
 
-const Borrow = ({books}) => {
+const Borrow = ({books, users}) => {
 
     let userText = '{"username": "user3","roles":["ROLE_USER"]}';
     const user = JSON.parse(userText);
@@ -42,6 +54,7 @@ const Borrow = ({books}) => {
         })
         const data = await response.json();
         console.log(data);
+        document. location. reload();
     }
 
     const setUserName = (userName) => {
@@ -66,12 +79,37 @@ const Borrow = ({books}) => {
 
             <div>
                 <h1>Select book and user to create borrow :</h1>
-                {/* A JSX comment
+
+                {/* USERS TABLE*/}
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="left">Title</StyledTableCell>
+                                <StyledTableCell align="left">Users</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {users.map((user) => (
+
+                                <TableRow
+                                    key={user.id}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+
+                                    <TableCell align="left">{user.username}</TableCell>
+                                </TableRow>
+
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+
+                {/* BOOKS TABLE */}
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="left">Books</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -89,35 +127,6 @@ const Borrow = ({books}) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
--->*/}
-            </div>
-
-
-            <div>
-                <MaterialTable
-                    title="Simple Action Preview"
-                    columns={[
-                        { title: 'Name', field: 'name' },
-                        { title: 'Surname', field: 'surname' },
-                        { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-                        {
-                            title: 'Birth Place',
-                            field: 'birthCity',
-                            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                        },
-                    ]}
-                    data={[
-                        { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-                        { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
-                    ]}
-                    actions={[
-                        {
-                            icon: 'save',
-                            tooltip: 'Save User',
-                            onClick: (event, rowData) => alert("You saved " + rowData.name)
-                        }
-                    ]}
-                />
             </div>
 
         </Layout>
