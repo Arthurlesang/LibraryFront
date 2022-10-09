@@ -1,6 +1,6 @@
 import Layout from '../../components/layout';
 import Button from "@mui/material/Button";
-import {Paper, Table, TableBody, TableContainer, TableHead, TableRow, TextField} from "@mui/material";
+import {Container, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow, TextField} from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
@@ -55,6 +55,7 @@ const Borrow = ({books, users}) => {
         const data = await response.json();
         console.log(data);
         document. location. reload();
+        window.alert("User created");
     }
 
     const setUserName = (userName) => {
@@ -63,57 +64,63 @@ const Borrow = ({books, users}) => {
 
     return (
         <Layout>
-            <h1>Borrow</h1>
-            <div>
-                <Button href="/posts/consult" color="primary" variant="contained">Consult books</Button>
-            </div>
-            <div>
-                <h1>Create new user : </h1>
-                <TextField id="outlined-basic" label="User name" variant="outlined"
-                    onChange={e => setUserName(e.target.value)}
-                />
-            </div>
-            <div>
-                <Button variant="contained" onClick={submitUser}>Create user</Button>
-            </div>
+            <Container>
+                <h1>Borrow</h1>
+                <div>
+                    <Button href="/posts/consult" color="primary" variant="contained">Consult books</Button>
+                </div>
+                <div>
+                    <h1>Create new user : </h1>
+                    <TextField id="outlined-basic" label="User name" variant="outlined"
+                               onChange={e => setUserName(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <Button variant="contained" onClick={submitUser}>Create user</Button>
+                </div>
+
+            </Container>
 
             <div>
-                <h1>Select book and user to create borrow :</h1>
+            <Container>
+                    <h1>Select book and user to create borrow :</h1>
 
-                {/* USERS TABLE*/}
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left">Users</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {users.map((user) => (
-
-                                <TableRow
-                                    key={user.id}
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-
-                                    <TableCell align="left">{user.username}</TableCell>
+                    {/* USERS TABLE*/}
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="left">Users</StyledTableCell>
                                 </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {users.map((user) => (
 
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                    <TableRow
+                                        key={user.id}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+
+                                        <TableCell align="left">{user.username}</TableCell>
+                                    </TableRow>
+
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Container>
 
 
-                {/* BOOKS TABLE */}
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left">Books</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {books.map((book) => (
+                <Container>
+                    {/* BOOKS TABLE */}
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="left">Books</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {books.map((book) => (
 
 
                                     <TableRow
@@ -123,10 +130,12 @@ const Borrow = ({books, users}) => {
                                         <TableCell align="left">{book.title}</TableCell>
                                     </TableRow>
 
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Container>
+
             </div>
 
         </Layout>

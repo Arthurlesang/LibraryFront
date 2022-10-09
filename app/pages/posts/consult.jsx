@@ -1,5 +1,5 @@
 import Layout from '../../components/layout';
-import {Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Container, Paper, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
 import {styled} from '@mui/material/styles';
 import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 
@@ -25,50 +25,54 @@ export const getStaticProps = async () => {
 const Consult = ({books}) => {
     return (
         <Layout>
-            <h1>Consult</h1>
+            <Container>
+                <h1>Consult</h1>
 
-            {/*{books.map(book => (
+                {/*{books.map(book => (
                 <div key={book.name}>
                     <h3>{book.name} {book.author.name} {book.author.surname} {book.state}</h3>
                 </div>
             ))}*/}
 
 
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="left">Title</StyledTableCell>
-                            <StyledTableCell align="left">Author's first name</StyledTableCell>
-                            <StyledTableCell align="left">Author's last name</StyledTableCell>
-                            <StyledTableCell align="left">Publisher</StyledTableCell>
-                            <StyledTableCell align="left">Status</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {books.map((book) => (
-                            book.authors.map(author => (
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="left">Title</StyledTableCell>
+                                <StyledTableCell align="left">Author's first name</StyledTableCell>
+                                <StyledTableCell align="left">Author's last name</StyledTableCell>
+                                <StyledTableCell align="left">Publisher</StyledTableCell>
+                                <StyledTableCell align="left">Status</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {books.map((book) => (
+                                book.authors.map(author => (
 
 
-                                <TableRow
-                                    key={book.id}
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                >
+                                    <TableRow
+                                        key={book.id}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                    >
 
-                                    <TableCell align="left">{book.title}</TableCell>
-                                    <TableCell align="left">{author.firstName}</TableCell>
-                                    <TableCell align="left">{author.lastName}</TableCell>
-                                    <TableCell align="left">{book.publisher}</TableCell>
-                                    <TableCell align="left">{book.state}</TableCell>
-                                </TableRow>
+                                        <TableCell align="left">{book.title}</TableCell>
+                                        <TableCell align="left">{author.firstName}</TableCell>
+                                        <TableCell align="left">{author.lastName}</TableCell>
+                                        <TableCell align="left">{book.publisher}</TableCell>
+                                        <TableCell align="left">{book.state}</TableCell>
+                                    </TableRow>
 
 
-                            ))
+                                ))
 
                             ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </Container>
+
         </Layout>
     );
 }
