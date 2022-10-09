@@ -1,6 +1,16 @@
 import Layout from '../../components/layout';
 import * as React from "react";
-import {Container, Paper, Table, TableBody, TableContainer, TableHead, TableRow, TextField} from "@mui/material";
+import {
+    Checkbox,
+    Container,
+    Paper,
+    Table,
+    TableBody,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
 import * as PropTypes from "prop-types";
@@ -83,6 +93,7 @@ const Contributor = ({authors, publishers}) => {
         window.alert("Publisher created");
     }
 
+    let isItemSelected;
     return (
         <Layout>
             <h1>Contributor</h1>
@@ -141,11 +152,12 @@ const Contributor = ({authors, publishers}) => {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="left">Publishers</StyledTableCell>
+                                    <StyledTableCell align="left">Publishers</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {publishers.map((publisher) => (
 
+                                {publishers.map((publisher) => (
                                     <TableRow
                                         key={publisher.id}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}>

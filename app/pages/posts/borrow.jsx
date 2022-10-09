@@ -26,7 +26,7 @@ export const getStaticProps = async () => {
     const data2 = await res2.json();
 
     return {
-        props: {books: data, users : data2}
+        props: {books: data, users: data2}
     }
 }
 
@@ -47,14 +47,15 @@ const Borrow = ({books, users}) => {
 
     const submitUser = async () => {
         const response = await fetch('http://15.237.139.132:3000/user/add/', {
-            method:'POST',
+            method: 'POST',
             body: JSON.stringify(user),
-            headers:{'Content-Type' : 'application/json',
+            headers: {
+                'Content-Type': 'application/json',
             },
         })
         const data = await response.json();
         console.log(data);
-        document. location. reload();
+        document.location.reload();
         window.alert("User created");
     }
 
@@ -82,14 +83,15 @@ const Borrow = ({books, users}) => {
             </Container>
 
             <div>
-            <Container>
+                <Container>
                     <h1>Select book and user to create borrow :</h1>
-
+                    <h2> Books</h2>
                     {/* USERS TABLE*/}
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
+                                    <StyledTableCell align="left">id</StyledTableCell>
                                     <StyledTableCell align="left">Users</StyledTableCell>
                                 </TableRow>
                             </TableHead>
@@ -100,6 +102,7 @@ const Borrow = ({books, users}) => {
                                         key={user.id}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}>
 
+                                        <TableCell align="left">{user.id}</TableCell>
                                         <TableCell align="left">{user.username}</TableCell>
                                     </TableRow>
 
@@ -111,11 +114,13 @@ const Borrow = ({books, users}) => {
 
 
                 <Container>
+                    <h2>Users :</h2>
                     {/* BOOKS TABLE */}
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} size="small" aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
+                                    <StyledTableCell align="left">id</StyledTableCell>
                                     <StyledTableCell align="left">Books</StyledTableCell>
                                 </TableRow>
                             </TableHead>
@@ -126,7 +131,7 @@ const Borrow = ({books, users}) => {
                                     <TableRow
                                         key={book.id}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-
+                                        <TableCell align="left">{book.id}</TableCell>
                                         <TableCell align="left">{book.title}</TableCell>
                                     </TableRow>
 
@@ -135,8 +140,24 @@ const Borrow = ({books, users}) => {
                         </Table>
                     </TableContainer>
                 </Container>
-
             </div>
+             <Container>
+                 <div>
+                     <h2>User id : </h2>
+                     <TextField id="outlined-basic" label="User id" variant="outlined"
+                                onChange={e => setUserName(e.target.value)}
+                     />
+                     <h2>Book id : </h2>
+                     <TextField id="outlined-basic" label="Book id" variant="outlined"
+                                onChange={e => setUserName(e.target.value)}
+                     />
+                 </div>
+                 <div>
+                     <Button variant="contained" onClick={submitUser}>Create borrowing</Button>
+                 </div>
+
+             </Container>
+
 
         </Layout>
     )
